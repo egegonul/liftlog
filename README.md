@@ -32,7 +32,9 @@ Built by GitHub Actions; no Android Studio needed.
 
 ## Install / update on your phone
 
-Download: `https://github.com/<your-user>/liftlog/releases/download/latest/liftlog.apk`
+Download: `https://<your-user>.github.io/liftlog/liftlog.apk`
+
+The release asset is also at `https://github.com/<your-user>/liftlog/releases/download/latest/liftlog.apk`. Chrome on Android often freezes at 100% on that link, so use the github.io link above.
 
 Open it and allow "install unknown apps" for your browser when asked.
 To update, download the same link again and install over the old app. Your data stays.

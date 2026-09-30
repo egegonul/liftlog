@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -59,3 +61,25 @@ jobs:
           name: Lift Log (build ${{ github.run_number }})
           files: liftlog.apk
           make_latest: true
+
+      # Chrome on Android stalls at 100% on the GitHub release redirect.
+      # Pages serves the APK directly, which that download bug does not hit.
+      - name: Prepare download page
+        run: |
+          mkdir -p site
+          cp liftlog.apk site/liftlog.apk
+          cp pages/index.html site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
